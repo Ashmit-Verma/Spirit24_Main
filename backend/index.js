@@ -26,13 +26,13 @@ app.use(
       secret: "your_secret_key", // Replace with a strong secret for cookie encryption
       resave: false, // Avoid resaving session if not modified
       saveUninitialized: true, // Save uninitialized session
-      cookie: { secure: false }, // Set to true if using HTTPS
+      cookie: { secure: true }, // Set to true if using HTTPS
     })
   );
 
 app.use(express.json());
 const corsOptions = {
-  origin: "*",
+  origin: "https://chipper-hamster-bec1f3.netlify.app",
   optionsSuccessStatus: 200,
 };
 app.use(passport.initialize());

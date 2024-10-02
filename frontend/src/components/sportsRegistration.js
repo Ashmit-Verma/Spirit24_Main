@@ -26,7 +26,7 @@ const SportsRegistrations = () => {
   useEffect(() => {
     const fetchRegistrations = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/sportsDetail', {
+        const response = await axios.get('https://spirit24-main.onrender.com/sportsDetail', {
           params: { googleId },
         });
         setRegistrations(response.data.registrations);

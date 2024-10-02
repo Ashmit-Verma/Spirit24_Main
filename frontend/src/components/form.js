@@ -99,7 +99,7 @@ const MultiStepForm = () => {
     };
         // Send form data to backend using Axios
         console.log(dataToSubmit);
-        const response = await axios.post('http://localhost:4000/register', dataToSubmit);
+        const response = await axios.post('https://spirit24-main.onrender.com/register', dataToSubmit);
         if (response.status === 201) {
           alert("Form submitted successfully!");
           Navigate(`/registration?googleId=${googleId}`, { state: { googleId } });

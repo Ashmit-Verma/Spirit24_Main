@@ -57,7 +57,7 @@ useEffect(() => {
 
   const handleSubmitForm = async () => {
     try {
-      const response = await axios.post('http://localhost:4000/sportsRegister', {
+      const response = await axios.post('https://spirit24-main.onrender.com/sportsRegister', {
         sport: formData.sport,
         captain: formData.captain,
         viceCaptain: formData.viceCaptain,

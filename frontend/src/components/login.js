@@ -6,8 +6,8 @@ const LoginComponent = () => {
     const navigate = useNavigate(); // useHistory hook to programmatically navigate
 
     const handleGoogleLogin = async () => {
-      window.open('http://localhost:4000/auth/google','_self')
-      const response = await fetch('http://localhost:4000/auth/google', {
+      window.open('https://spirit24-main.onrender.com/auth/google','_self')
+      const response = await fetch('https://spirit24-main.onrender.com/auth/google', {
           method: 'GET',
           credentials: 'include', // Include cookies if needed for session management
       });

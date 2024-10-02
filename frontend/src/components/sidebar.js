@@ -31,7 +31,7 @@ const Sidebar = ({ isOpen, toggleSidebar, className }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/profile', {
+        const response = await axios.get('https://spirit24-main.onrender.com/profile', {
           params: {
             googleId: googleId,
           },
