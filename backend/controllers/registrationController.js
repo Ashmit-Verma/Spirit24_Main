@@ -29,6 +29,7 @@ export const registerUser = async (req, res) => {
       alternate_no,
       gender,
       participation,
+      position,
       googleId,
     } = req.body;
 
@@ -63,6 +64,7 @@ export const registerUser = async (req, res) => {
           State: state,
           year,
           participate: participation,
+          position:position,
           userId:googleUser.id, // Link Google user
         });
 
