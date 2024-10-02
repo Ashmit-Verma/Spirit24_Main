@@ -27,7 +27,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:4000/auth/google/redirect",
+      callbackURL: "https://spirit24-main.onrender.com/auth/google/redirect",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
