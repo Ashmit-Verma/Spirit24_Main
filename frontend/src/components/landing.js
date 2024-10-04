@@ -119,7 +119,7 @@ const SpiritFestival = () => {
       </main>
 
       {/* Footer */}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

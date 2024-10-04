@@ -798,6 +798,19 @@ of protest and conceding a walkover shall be
 deemed to have lost the fixture and will be eliminated
 from the rest of the event.`],
 
+'Water Polo (Men)':[`The competitions shall be conducted under FINA 
+as adopted from time to time by the Swimming Federation of India 
+unless otherwise modified.`,
+`Each college shall submit a list of players, not exceeding 
+13 (7 playings + 6 reserves).`,
+`A team will be awarded 3 points for a win, 1 for a draw, 
+and 0 points for a lost match.`,
+`As per SFI rules the total goals ‘FOR’ minus the total 
+Goals ‘AGAINST’ of all the matches played by the team 
+in the league matches shall decide the tie during 
+league matches. If the tie still persists, SFI rules 
+will be adopted for breaking the tie.`],
+
 'Weight Lifting (Men)':[`The competition shall be conducted under the
 International Weightlifting Federation Rules as
 adopted from time to time by the Weightlifting
@@ -807,40 +820,32 @@ shown in the Table will be held. The
 corresponding points of each event for
 Weightlifting Championship are indicated in the
 table`,
-` Each college will be allowed to enter two
-competitors for each weight class. The
-competition for a weight class will be held even
-if there is only one competitor.
-Categories Individual Points
-I II III IV
-Up to 55 kg 5 3 2 1
-55 to 61 kg 5 3 2 1
-61 to 67 kg 5 3 2 1
-67 to 73 kg 5 3 2 1
-73 to 81 kg 5 3 2 1
-81 to 89 kg 5 3 2 1
-4. Each college will be submitting a complete
+`Each college will be allowed to enter two competitors for 
+each weight class. The competition for a weight class will
+be held even if there is only one competitor.`,
+`Each college will be submitting a complete
 team list (2 participants) of participants with the
 weight category in which they will be
 participating before the weighing in on the first
 day, irrespective of whether the competition for
 that weight category is being held on that day
-or not.
-5. In case of a tie for the Weightlifting
+or not.`,
+`In case of a tie for the Weightlifting
 Championship, the team winning the maximum
 number of gold medals will be awarded the
 Championship. If a tie persists, the team
 winning the maximum number of silver medals
-will be awarded the championship and so on.
-6. The progression after every successful attempt
+will be awarded the championship and so on.`,
+`The progression after every successful attempt
 for the same weightlifter must be a minimum of
-1 Kg.
-7. Certificates shall be awarded to the top three
-places in all weightlifting categories.
-8. The competitors should only wear ‘position
+1 Kg.`,
+`Certificates shall be awarded to the top three
+places in all weightlifting categories.`,
+`The competitors should only wear ‘position
 slips’ and no oil or grease should be applied on
-the body at any stage.
-Best Lifter:`],
+the body at any stage.`,
+`For the rules of Best Lifter click on the pdf icon above and you can
+find the rules in weight lifting section.`],
 
 'General Rules':[`Each contingent should have a leader.`,
 `Identity cards issued at the time of registration
@@ -950,12 +955,9 @@ Relations Team.`,
 college (not older than 1 year )`]
 ,
     Yoga: [
-      " The competition shall be conducted under the World Athletic Rules as adopted...",
-      " Each college will be entitled to enter two competitors plus one reserve per event...",
-      " An Athlete can participate in a maximum of three events, excluding relays...",
-      " Lots for lanes will be drawn during heats at the call room...",
-      " The schedule of event will be strictly followed...",
-      " Minimum of three participants are required to have a competition..."
+      " Competitor has to perform 4 compulsory Yoga Asanas.",
+      " Holding time of Compulsory Yogasanas is 30 seconds.",
+      " Always start and end your Yogasanas performance with Namaste Mudra.",
     ],
     // Add rules for other sports as needed
   };
