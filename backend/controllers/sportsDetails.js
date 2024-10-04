@@ -6,7 +6,7 @@ export const getSportRegistration = async (req, res) => {
   try {
     // Access googleId from query parameters
     const { googleId } = req.query;
-    console.log(googleId);
+    console.log("sports Detail"+googleId);
 
     // Find the GoogleUser by googleId
     const googleUser = await GoogleUser.findOne({ where: { googleId } });

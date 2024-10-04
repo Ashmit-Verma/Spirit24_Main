@@ -7,7 +7,7 @@ import { GoogleUser } from '../models/GoogleUser.js'; // Your User model
 // Profile completion check route
 export const profileController= async (req, res) => {
     const { googleId } = req.query;
-    console.log(googleId);
+    console.log("Profile Controller"+googleId);
 
     try {
       // Find the user in the database based on googleId
