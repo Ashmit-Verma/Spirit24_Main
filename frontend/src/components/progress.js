@@ -133,6 +133,7 @@ const teamLimits = {
          console.log("Internal Server Error");
       // Optionally reset form or show success message
     } catch (error) {
+      console.log(error);
       alert('Error submitting form');
       Navigate(`/registration?googleId=${googleId}`, { state: { googleId } });
     }

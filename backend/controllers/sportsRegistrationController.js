@@ -15,7 +15,7 @@ export const registerSport = async (req, res) => {
     const user=await User.findOne({ where: { userId: googleUser.id } })
     console.log("HI");
     if (!user) {
-      return res.redirect("http://localhost:3000/signup").json({ message: "Please fill in personal details first." });
+      return res.redirect("https://spiritiitg.in/signup").json({ message: "Please fill in personal details first." });
     }
     console.log("user found");
 
