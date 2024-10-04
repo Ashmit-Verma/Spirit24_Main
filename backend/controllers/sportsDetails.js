@@ -9,7 +9,7 @@ export const getSportRegistration = async (req, res) => {
     console.log(googleId);
 
     // Find the GoogleUser by googleId
-    const googleUser = await GoogleUser.findOne({ googleId });
+    const googleUser = await GoogleUser.findOne({ where: { googleId } });
     if (!googleUser) {
       return res.status(404).json({ message: "Google user not found" });
     }
