@@ -31,7 +31,7 @@ export const registerSport = async (req, res) => {
       viceCaptainEmail: viceCaptain.email,
       viceCaptainContactNumber: viceCaptain.contactNumber,
       teamMembers: JSON.stringify(teamMembers),// This should be an array of objects
-      userId: user.id, // Associate with the User ID
+      userId: user.userId, // Associate with the User ID
     });
 
     return res.status(201).json({ message: 'Registration successful', registration });

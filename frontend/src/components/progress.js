@@ -27,8 +27,8 @@ useEffect(() => {
     if (googleId) {
         setGoogleId(googleId);
     }
-    // else
-    // Navigate("/login");
+    else
+    Navigate("/login");
 }, [location]);
 
 const teamLimits = {
@@ -101,7 +101,7 @@ const teamLimits = {
 
   const nextStep = () => {
     if (currentStep === 3 && formData.teamMembers.length < teamLimits[formData.sport].min) {
-      alert(`You must add at least ${teamLimits[formData.sport]} team members before proceeding to the next step.`);
+      alert(`You must add at least ${teamLimits[formData.sport].min} team members before proceeding to the next step.`);
     }
     else
     {

@@ -9,16 +9,9 @@ import Landing from './page/landingPage.js';
 import SportRegistration from './page/sportsDetail.js';
 import Rule from './page/rulePage.js';
 
+
 // SignupRoute to ensure login is done before accessing signup
-const SignupRoute = ({ element: Element }) => {
-  const isAuthenticated = !!localStorage.getItem('token'); // Checks if user is logged in
-  const isSignedUp = !!localStorage.getItem('signedUp'); // Checks if user has signed up
-  return isAuthenticated ? (
-    isSignedUp ? <Navigate to="/registration" /> : <Element />
-  ) : (
-    <Navigate to="/login" />
-  );
-};
+
 
 function App() {
   return (

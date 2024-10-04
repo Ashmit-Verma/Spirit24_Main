@@ -21,7 +21,7 @@ export const getSportRegistration = async (req, res) => {
     }
 
     // Fetch all sports registrations associated with the user
-    const registrations = await SportRegistration.findAll({ where: { userId: user.id } });
+    const registrations = await SportRegistration.findAll({ where: { userId: user.userId } });
     
     if (registrations.length === 0) {
       return res.status(404).json({ message: "No sports registrations found for this user" });

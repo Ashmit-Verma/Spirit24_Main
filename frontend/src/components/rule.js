@@ -688,6 +688,27 @@ B. The Order of play shall be:
 `The result of the tie shall be declared when
 either team wins two matches.`],
 
+'Squash (Women)':[`The rules of the World Squash and Squash Racket
+Federation of India as adopted from time to time,
+shall be followed unless otherwise modified.`,
+`Every college should submit a list of players, not
+exceeding 4.`,
+`The matches will be played on a league cum
+knockout basis.`,
+`All the matches shall be played in the best of 5
+games format.`,
+`Scoring will be according to 11 points game.`,
+`The order of play shall be as follows:
+A. Three players on one side are numbered A, B
+and C, while the three players on the other side
+are numbered X, Y and Z.
+B. The Order of play shall be:
+•( A vs. X)
+•( B vs. Y)
+•( C vs. Z)`,
+`The result of the tie shall be declared when
+either team wins two matches.`],
+
 'Volleyball (Men)':[`Every team will submit a list of players, not
 exceeding 12`,
 `The tournament shall be played on a league
@@ -1011,7 +1032,7 @@ college (not older than 1 year )`]
       </button>
     ))}
 </div>
-    
+
       <Modal
         show={showModal}
         onClose={() => setShowModal(false)}

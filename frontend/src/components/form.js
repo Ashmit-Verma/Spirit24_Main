@@ -65,8 +65,8 @@ const MultiStepForm = () => {
         if (googleId) {
             setGoogleId(googleId);
           }
-      //     else
-      // Navigate("/login");
+          else
+      Navigate("/login");
     }, [location]);
         
         const backgroundStyle = {
@@ -75,12 +75,16 @@ const MultiStepForm = () => {
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
           };
-          const nextStep = () => {
-            if (validateStep()) {
+          const nextStep = (e) => {
+            e.preventDefault();
+            const isValid = validateStep();
+
+            // If validation passes, move to the next step
+            if (isValid) {
               setStep(step + 1);
+            } else {
+              alert("Error in form submission");
             }
-            else
-            {}
           };
   const prevStep = () =>
     {
@@ -150,7 +154,7 @@ const MultiStepForm = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">Pincode</label>
+                    <label className="block text-sm font-medium text-gray-700">Pincode*</label>
                     <input
                       type="text"
                       placeholder="Enter your Pincode here"
@@ -161,7 +165,7 @@ const MultiStepForm = () => {
                     {errors.pincode && <p className="text-red-500">{errors.pincode}</p>}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700">City</label>
+                    <label className="block text-sm font-medium text-gray-700">City*</label>
                     <input
                       type="text"
                       placeholder="Enter your City Name here"
@@ -173,7 +177,7 @@ const MultiStepForm = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">State</label>
+                  <label className="block text-sm font-medium text-gray-700">State*</label>
                   <input
                     type="text"
                     placeholder="Enter your State Name here"
@@ -368,7 +372,7 @@ const MultiStepForm = () => {
                          onChange={handleChange("position")}
                          className="hidden"
                        />
-                       <span className="mr-2 bg-[#E8E8E8]">♂️</span> Coach
+                       <span className="mr-2 bg-[#E8E8E8]"></span> Coach
                      </label>
                      <label className={`flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 
   ${formData.position === 'Player' ? 'bg-blue-200' : 'bg-[#E8E8E8]'} hover:bg-gray-100`}>
@@ -379,7 +383,7 @@ const MultiStepForm = () => {
                          onChange={handleChange("position")}
                          className="hidden"
                        />
-                       <span className="mr-2">♀️</span> Player
+                       <span className="mr-2"></span> Player
                      </label>
                      {errors.position && <p className="text-red-500">{errors.position}</p>}
                    </div>

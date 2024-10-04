@@ -111,42 +111,34 @@ const FAQSection = () => {
     }));
   };
 
-  const calculateHeight = (index) => {
-    const content = document.getElementById(`faq-content-${index}`);
-    if (content) {
-      setContentHeight(prev => ({
-        ...prev,
-        [index]: content.scrollHeight
-      }));
-    }
-  };
+//   const calculateHeight = (index) => {
+//     const content = document.getElementById(`faq-content-${index}`);
+//     if (content) {
+//       setContentHeight(prev => ({
+//         ...prev,
+//         [index]: content.scrollHeight
+//       }));
+//     }
+//   };
 
   return (
     <section className="p-4 md:p-8 bg-white">
-      <div className="text-center mb-8 bg-[#141414]">
-        <h2 className="text-3xl md:text-5xl font-bold text-white py-4">
-          FAQs
-        </h2>
-      </div>
-      {faqData.map((category, categoryIndex) => (
-        <div key={categoryIndex} className="mb-6">
-          <button
-            className="w-full text-left px-4 py-3 bg-[#141414] text-white text-xl md:text-2xl font-semibold focus:outline-none flex justify-between items-center"
-            onClick={() => {
-              toggleCategory(categoryIndex);
-              calculateHeight(categoryIndex);
-            }}
-          >
-            <span>{category.category}</span>
-            <span>{openCategory === categoryIndex ? <ChevronUp /> : <ChevronDown />}</span>
-          </button>
-          <div
-            id={`faq-content-${categoryIndex}`}
-            className={`transition-all duration-300 overflow-hidden`}
-            style={{
-              maxHeight: openCategory === categoryIndex ? `${contentHeight[categoryIndex] || 0}px` : '0',
-            }}
-          >
+    <div className="text-center mb-8 bg-[#141414]">
+      <h2 className="text-3xl md:text-5xl font-bold text-white py-4">
+        FAQs
+      </h2>
+    </div>
+    {faqData.map((category, categoryIndex) => (
+      <div key={categoryIndex} className="mb-6">
+        <button
+          className="w-full text-left px-4 py-3 bg-[#141414] text-white text-xl md:text-2xl font-semibold focus:outline-none flex justify-between items-center"
+          onClick={() => toggleCategory(categoryIndex)}
+        >
+          <span>{category.category}</span>
+          <span>{openCategory === categoryIndex ? <ChevronUp /> : <ChevronDown />}</span>
+        </button>
+        {openCategory === categoryIndex && (
+          <div className="transition-all duration-300 overflow-hidden">
             {category.questions.map((faq, questionIndex) => (
               <div key={questionIndex} className="border-t border-indigo-900">
                 <button
@@ -156,24 +148,18 @@ const FAQSection = () => {
                   <span className="font-semibold text-lg md:text-xl">{faq.question}</span>
                   <span>{openFaq[categoryIndex] === questionIndex ? <ChevronUp /> : <ChevronDown />}</span>
                 </button>
-                <div
-                  className={`transition-all duration-300 overflow-hidden`}
-                  style={{
-                    maxHeight: openFaq[categoryIndex] === questionIndex ? '200px' : '0',
-                  }}
-                >
-                  {openFaq[categoryIndex] === questionIndex && (
-                    <p className="px-4 pb-4 bg-[#141414] text-white text-base md:text-lg">
-                      {faq.answer}
-                    </p>
-                  )}
-                </div>
+                {openFaq[categoryIndex] === questionIndex && (
+                  <div className="px-4 pb-4 bg-[#141414] text-white text-base md:text-lg">
+                    {faq.answer}
+                  </div>
+                )}
               </div>
             ))}
           </div>
-        </div>
-      ))}
-    </section>
+        )}
+      </div>
+    ))}
+  </section>
   );
 };
 

@@ -22,10 +22,10 @@ const Sidebar = ({ isOpen, toggleSidebar, className }) => {
       setGoogleId(googleId);
       console.log(googleId);
     }
-    // else
-    // {
-    //   Navigate("/login");
-    // }
+    else
+    {
+      Navigate("/login");
+    }
   }, [location]);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const Sidebar = ({ isOpen, toggleSidebar, className }) => {
           Add Sports
         </a>
         <a 
-  href="/rule?googleId=${googleId}" 
+  href={`/rule?googleId=${googleId}`} 
   className="py-4 text-center block hover:bg-orange-500 md:bg-transparent text-black" 
 >
   Rule Book
