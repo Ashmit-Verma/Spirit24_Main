@@ -11,7 +11,7 @@ export const profileController= async (req, res) => {
 
     try {
       // Find the user in the database based on googleId
-      const googleuser = await GoogleUser.findOne({ googleId });
+      const googleuser = await GoogleUser.findOne({ where: { googleId } });
       const user=await User.findOne({ where: { userId: googleuser.id } })
   
       if (!user) {
