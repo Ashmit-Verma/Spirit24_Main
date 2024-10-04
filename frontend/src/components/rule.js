@@ -1,21 +1,31 @@
 import React from "react";
 import { useState } from "react";
+import { FileText } from 'lucide-react';
 
 const Modal = ({ show, onClose, title, rules }) => {
     if (!show) return null;
   
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
         <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
           <div className="flex justify-between items-center mb-4">
-          <div className="flex-col justify-between items-center mb-4">
-            <h2 className="font-fireSans rounded-lg border-2 mt-2 mb-2 p-1 text-center">{title}</h2>
-            <h2 className="text-base font-bold">Rules are as follows:</h2>
+            <div className="flex-col justify-start items-center">
+              <h2 className="font-fireSans rounded-lg border-2 mt-2 mb-2 p-1 text-center">{title}</h2>
+              
             </div>
-            <button onClick={onClose} className="text-gray-600 hover:text-gray-800">
-              &times;
-            </button>
+            <div className="flex items-center justify-start space-x-2">
+              {/* PDF Download Icon */}
+              <a href="https://drive.google.com/file/d/1jnmXLJ1QqPZK-XhR7pc5pFRqZknzbrs2/view?usp=sharing"className="text-gray-600 hover:text-gray-800">
+  <FileText className="w-6 h-6" />
+</a>
+
+              {/* Close Button with Larger Cross */}
+              <button onClick={onClose} className="text-gray-600 hover:text-gray-800 text-5xl">
+                &times;
+              </button>
+            </div>
           </div>
+          <h2 className="text-base font-bold mb-4">Rules are as follows:</h2>
           <div className="overflow-y-auto max-h-80">
             <ol className="list-decimal list-inside space-y-2">
               {rules.map((rule, index) => (
@@ -25,6 +35,7 @@ const Modal = ({ show, onClose, title, rules }) => {
           </div>
         </div>
       </div>
+      
     );
   };
   
@@ -831,6 +842,113 @@ slips’ and no oil or grease should be applied on
 the body at any stage.
 Best Lifter:`],
 
+'General Rules':[`Each contingent should have a leader.`,
+`Identity cards issued at the time of registration
+should be carried at all times and must be
+produced on demand. In case anyone loses the
+Identity card, he/she should immediately collect
+a new one else he/she will not allow competing
+in his/her respective games`,
+`In case of participation in multiple events, he/
+she will be responsible in the case of a clash of
+any events.`,
+`Types of Tournaments: League, knockout or
+League come knockout depending on the
+number of teams registered.`,
+`The contingent leader is responsible to take
+care of the discipline and decorum of his/her
+team.`,
+`A maximum of 5 managers or coaches will be
+allowed to accompany their contingent (their
+registration will be made as a participant)`,
+`Acts of hooliganism, abuse, fighting, eve
+teasing, disrupting rules and harmony of the
+campus, vandalising infrastructure or
+instruments are strictly prohibited`,
+`Boys are strictly prohibited from girl's
+accommodation at any time vice versa.`,
+`Usage/consumption and/or possession of
+alcohol, drugs, substances, and devices of
+smoking is strictly prohibited.`,
+`All the contingent members must obey the
+rules and regulations of the security
+department of the institute.`,
+`Any issue of eve teasing will be severely
+penalised by the SPIRIT Committee resulting in
+the disqualification of the whole contingent.
+12.Decisions made by the officials will be final and
+no objections will be entertained.`],
+
+'Accomodation and Facilities':[`The contingent can avail the lodging facility at IIT
+Guwahati by paying for the accommodation facilities
+available.`,
+`Four types of facilities are available for
+accommodation and following are the prices for span
+of 4 days from 24-27th October per head
+• Dormitory style - 700/-
+• Double occupancy - 1000/-
+• Single occupancy - 1200/-
+• Guest rooms with attached washroom - 1400/-`,
+`Beddings will be provided along with a basic
+hospitality kit, but participants must bring their own
+bed-sheets and essential items.`,
+`The coaches or managers accompanying the
+contingent will also have to pay the accommodation
+fee depending upon the room that they choose to
+stay at.`,
+`We have limited accommodation so we will be
+providing accommodation on a first come first serve
+basis.`,
+`Refreshments will be provided to all participants
+during their events.`,
+`Queries, to change the given accommodation
+will be entertained.`,
+`We strongly discourage you from carrying any
+valuables and we will not be responsible under
+any circumstance for any loss you may suffer
+during your stay at IIT Guwahati. You are
+expected to take care of your own luggage.`,
+`The accommodation fees doesn’t include the
+food charges and must be availed separately`,
+`There are various hostel messes , canteens and
+foodcourts across the campus and choice can
+made out of any of these`,
+`While in case of messes specifically the charges
+per day are
+• Breakfast - 60 /- per head
+• Lunch - 75 /- per head
+• Dinner - 75/- per head`],
+
+'Arrival':[`Every participant should produce their valid
+institute ID cards at the time of Registration.`,
+`The arriving contingent must report at the
+Sports Gymkhana Office for their final
+registration and get their accommodation
+details.`,
+`Make sure that the complete contingent arrives
+at the same time for smoother and faster
+registration.`,
+`Only the registered participants will be allowed
+to participate in their events.`,
+`Fixtures will be released 2 days before the
+inauguration, and no request to change the
+fixture shall be entertained.`,
+`You are requested to contact the Public
+Relations Team at least 24 hours before your
+arrival.`,
+`A confirmation letter given to you by our Public
+Relations Team will be mandatory to produce at
+the time of registration.`],
+
+'Documentation Required':[`Two hard copies of the Contingent Details.`,
+` Identity cards and 2-passport size photographs
+with the respective names (behind the
+photograph) of every member of the contingent.`,
+`Confirmation letter given to you by our Public
+Relations Team.`,
+`Institute / college ID card of their respective
+college (not older than 1 year )`]
+,
     Yoga: [
       " The competition shall be conducted under the World Athletic Rules as adopted...",
       " Each college will be entitled to enter two competitors plus one reserve per event...",
@@ -851,10 +969,10 @@ Best Lifter:`],
     return (
         <div className={`mt-2 text-sm font-medium uppercase font-fireSans p-4`}>
             <h2 className="text-4xl mb-4">Rules</h2>
-          
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        {['Football (Men)', 'Cricket (Men)','Badminton (Men)','Badminton (Women)', 'Basketball (Men)', 'Basketball (Women)', 'Lawn Tennis (Men)', 'Lawn Tennis (Women)', 'Table Tennis (Men)', 'Table Tennis (Women)', 'Kho-kho (Men)', 'Kho-kho (Women)', 'Volleyball (Men)', 'Volleyball (Women)', 'Hockey (Men)', 'Swimming (Individual)', 'Athletics (Men)','Athletics (Women)', 'Carrom', 'Yoga', 'Water Polo (Men)', 'Chess', 'Squash (Men)', 'Squash (Women)', 'Kabaddi (Men)', 'Weight Lifting (Men)']
-          .sort() // Sort the sports array
+
+            <h3 className="text-2xl mb-4">General Rules</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        {['General Rules','Accomodation and Facilities','Arrival','Documentation Required']
           .map((sport) => (
             <button
               key={sport}
@@ -862,11 +980,36 @@ Best Lifter:`],
               border-gray-300 hover:bg-gray-100`}
               onClick={() => handleButtonClick(sport)}
             >
-              <img src={`${sport}.png`} alt={sport}></img>
-              <p className='font-fireSans rounded-lg border-2 mt-2'>{sport}</p>
+              {/* <img src={`${sport}.png`} alt={sport}></img> */}
+              <p className='font-fireSans rounded-lg mt-2'>{sport}</p>
             </button>
           ))}
       </div>
+            <h3 className="text-2xl mb-4">Sports Rules</h3>
+          
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+  {[
+    'Football (Men)', 'Cricket (Men)', 'Badminton (Men)', 'Badminton (Women)', 'Basketball (Men)', 
+    'Basketball (Women)', 'Lawn Tennis (Men)', 'Lawn Tennis (Women)', 'Table Tennis (Men)', 
+    'Table Tennis (Women)', 'Kho-kho (Men)', 'Kho-kho (Women)', 'Volleyball (Men)', 
+    'Volleyball (Women)', 'Hockey (Men)', 'Swimming (Individual)', 'Athletics (Men)', 
+    'Athletics (Women)', 'Carrom', 'Yoga', 'Water Polo (Men)', 'Chess', 'Squash (Men)', 
+    'Squash (Women)', 'Kabaddi (Men)', 'Weight Lifting (Men)'
+  ]
+    .sort() // Sort the sports array
+    .map((sport) => (
+      <button
+        key={sport}
+        className={`p-6 md:p-8 lg:p-10 border-2 rounded-xl transition-colors duration-200 ease-in-out 
+          flex flex-col justify-center items-center border-gray-300 hover:bg-gray-100`}
+        onClick={() => handleButtonClick(sport)}
+      >
+        <img src={`${sport}.png`} alt={sport} className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24" /> {/* Control image size */}
+        <p className='font-fireSans text-center mt-2'>{sport}</p>
+      </button>
+    ))}
+</div>
+    
       <Modal
         show={showModal}
         onClose={() => setShowModal(false)}

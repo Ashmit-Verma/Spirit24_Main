@@ -31,6 +31,35 @@ useEffect(() => {
     // Navigate("/login");
 }, [location]);
 
+const teamLimits = {
+  'Athletics (Men)':{min:1,max:4},
+  'Athletics (Women)':{min:1,max:4},
+  'Badminton (Men)': { min: 4, max: 5 },
+  'Badminton (Women)': { min: 2, max: 3 },
+  'Basketball (Men)': { min: 5, max: 12 },
+  'Basketball (Women)': { min: 5, max: 12 },
+  'Carrom':{min:2,max:5},
+  'Chess':{min:2,max:5},
+  'Cricket (Men)':{min:11,max:16},
+  'Football (Men)': { min: 11, max: 16 },
+  'Hockey (Men)': { min: 11, max: 16 },
+  'Kabaddi (Men)': {min:7,max:12},
+  'Kho-kho (Men)':{min:9,max:12},
+  'Lawn Tennis (Men)':{min:2,max:4},
+  'Lawn Tennis (Women)':{min:2,max:4},
+  'Table Tennis (Men)':{min:3,max:4},
+  'Table Tennis (Women)':{min:2,max:4},
+  'Squash (Men)':{min:2,max:4},
+  'Squash (Women)':{min:2,max:4},
+  'Volleyball (Men)':{min:7,max:12},
+  'Volleyball (Women)':{min:7,max:12},
+  'Weight Lifting (Men)':{min:1,max:1},
+  'Water Polo (Men)':{min:7,max:13},
+  'Swimming (Individual)': {min:1,max:4},
+
+};
+
+
   const handleInputChange = (step, field, value) => {
     setFormData(prevData => ({
       ...prevData,
@@ -45,13 +74,42 @@ useEffect(() => {
   };
 
   const addTeamMember = () => {
-    setFormData(prevData => ({
-      ...prevData,
-      teamMembers: [...prevData.teamMembers, { firstName: '', lastName: '' }]
-    }));
+    const sportLimits = teamLimits[formData.sport];
+
+    if (sportLimits) {
+      const { min, max } = sportLimits;
+  
+      // Check if current team members are less than max
+      if (formData.teamMembers.length < max) {
+        setFormData(prevData => ({
+          ...prevData,
+          teamMembers: [...prevData.teamMembers, { firstName: '', lastName: '' }]
+        }));
+      } else {
+        alert(`Maximum number of team members for ${formData.sport} is ${max}.`);
+      }
+    }
   };
 
-  const nextStep = () => setCurrentStep(prev => Math.min(prev + 1, 4));
+  const removeTeamMember = (index) => {
+    setFormData(prevData => ({
+      ...prevData,
+      teamMembers: prevData.teamMembers.filter((_, i) => i !== index) // Filter out the member at the specified index
+    }));
+  };
+  
+
+  const nextStep = () => {
+    if (currentStep === 3 && formData.teamMembers.length < teamLimits[formData.sport].min) {
+      alert(`You must add at least ${teamLimits[formData.sport]} team members before proceeding to the next step.`);
+    }
+    else
+    {
+      console.log(formData.teamMembers.length);
+      console.log(teamLimits[formData.sport]);
+      setCurrentStep(prev => Math.min(prev + 1, 4));
+    }
+  };
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
 
@@ -166,13 +224,14 @@ useEffect(() => {
                 value={formData.viceCaptain.contactNumber}
                 onChange={(e) => handleInputChange('viceCaptain', 'contactNumber', e.target.value)}
               />
+              
             </div>
           </div>
         );
       case 3:
         return (
           <div className="w-full">
-  <p className="text-sm text-red-500 mb-4">Please add players, including Captain and Vice-captain.</p>
+  <p className="text-sm text-red-500 mb-4">Please add players, including Captain and Vice-captain. Leave out Vice-captain for individual Sports</p>
   {formData.teamMembers.map((member, index) => (
     <div key={index} className="flex flex-col gap-4 mb-4">
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-7">
@@ -200,6 +259,12 @@ useEffect(() => {
           value={member.contactNumber}
           onChange={(e) => handleTeamMemberChange(index, 'contactNumber', e.target.value)}
         />
+        <button
+        className="mt-2 px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+        onClick={() => removeTeamMember(index)}
+      >
+        REMOVE
+      </button>
       </div>
     </div>
   ))}
@@ -229,12 +294,12 @@ useEffect(() => {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{`${formData.captain.firstName} ${formData.captain.lastName}`}</td>
+                    <td>{`${formData.captain.firstName} ${formData.captain.lastName}(CAPTAIN)`}</td>
                     <td>{formData.captain.email}</td>
                     <td>{formData.captain.contactNumber}</td>
                   </tr>
                   <tr>
-                    <td>{`${formData.viceCaptain.firstName} ${formData.viceCaptain.lastName}`}</td>
+                    <td>{`${formData.viceCaptain.firstName} ${formData.viceCaptain.lastName}(VICE-CAPTAIN)`}</td>
                     <td>{formData.viceCaptain.email}</td>
                     <td>{formData.viceCaptain.contactNumber}</td>
                   </tr>
@@ -310,6 +375,7 @@ useEffect(() => {
         {currentStep === 4 && "Confirm Submission"}
       </h1>
       {currentStep === 1 && <p className="text-sm text-red-500 mb-4">Register for one Sport at a time.</p>}
+      {currentStep === 2 && <p className="text-sm text-red-500 mb-4">For individual sports enter same details for captain and vice-captain</p>}
       
       <div className="mb-8 w-full">
         {renderStep()}
