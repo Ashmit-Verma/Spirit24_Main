@@ -32,7 +32,7 @@ app.use(
 
 app.use(express.json());
 const corsOptions = {
-  origin: "https://chipper-hamster-bec1f3.netlify.app",
+  origin: "https://spiritiitg.in",
   optionsSuccessStatus: 200,
 };
 app.use(passport.initialize());
