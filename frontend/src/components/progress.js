@@ -27,8 +27,8 @@ useEffect(() => {
     if (googleId) {
         setGoogleId(googleId);
     }
-    else
-    Navigate("/login");
+    // else
+    // Navigate("/login");
 }, [location]);
 
   const handleInputChange = (step, field, value) => {
@@ -85,17 +85,21 @@ useEffect(() => {
       case 1:
         return (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-  {['Football (Men)', 'Cricket (Men)', 'Basketball (Men)', 'Basketball (Women)', 'Tennis (Men)', 'Tennis (Women)', 'Table Tennis (Men)', 'Table Tennis (Women)', 'Kho-kho (Men)', 'Kho-kho (Women)', 'Volleyball (Men)', 'Volleyball (Women)', 'Hockey (Men)', 'Swimming (Individual)', 'Athletics (Men)', 'Carrom (Men)', 'Yoga', 'Water Polo (Men)', 'Chess', 'Squash (Men)', 'Squash (Women)', 'Kabaddi (Men)', 'Weight Lifting (Men)'].map((sport) => (
-    <button
-      key={sport}
-      className={`p-6 md:p-8 lg:p-10 border-2 rounded-lg transition-colors duration-200 ease-in-out 
-      ${formData.sport === sport ? 'border-blue-500 bg-blue-100' : 'border-gray-300 hover:bg-gray-100'}`}
-      onClick={() => setFormData(prev => ({ ...prev, sport }))}
-    >
-      {sport}
-    </button>
-  ))}
-</div>
+          {['Football (Men)', 'Cricket (Men)','Badminton (Men)','Badminton (Women)', 'Basketball (Men)', 'Basketball (Women)', 'Lawn Tennis (Men)', 'Lawn Tennis (Women)', 'Table Tennis (Men)', 'Table Tennis (Women)', 'Kho-kho (Men)', 'Kho-kho (Women)', 'Volleyball (Men)', 'Volleyball (Women)', 'Hockey (Men)', 'Swimming (Individual)', 'Athletics (Men)', 'Carrom', 'Yoga', 'Water Polo (Men)', 'Chess', 'Squash (Men)', 'Squash (Women)', 'Kabaddi (Men)', 'Weight Lifting (Men)']
+            .sort() // Sort the sports array
+            .map((sport) => (
+              <button
+                key={sport}
+                className={`p-6 md:p-8 lg:p-10 border-2 rounded-xl transition-colors duration-200 ease-in-out 
+                ${formData.sport === sport ? 'border-blue-500 bg-blue-100' : 'border-gray-300 hover:bg-gray-100'}`}
+                onClick={() => setFormData(prev => ({ ...prev, sport }))}
+              >
+                <img src={`${sport}.png`} alt={sport}></img>
+                <p className='font-fireSans rounded-lg border-2 mt-2'>{sport}</p>
+              </button>
+            ))}
+        </div>
+        
 
         );
       case 2:

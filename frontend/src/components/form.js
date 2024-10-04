@@ -7,7 +7,7 @@ const MultiStepForm = () => {
   const location = useLocation();
     const backgroundImages = {
         1: 'url("backgroundBlue.png")',
-        2: 'url("backgroundGreen.png")',
+        2: 'url("bGreen.png")',
         3: 'url("background.png")',
       };
 
@@ -42,7 +42,7 @@ const MultiStepForm = () => {
       
       if (step === 1) {
         if (!formData.instituteName) stepErrors.instituteName = "Institute name is required";
-        if(!formData.pincode) stepErrors.year = "Pincode is required";
+        if(!formData.pincode) stepErrors.pincode = "Pincode is required";
         if (!formData.year) stepErrors.year = "Year of study is required";
         if(!formData.city) stepErrors.city = "City is required";
         if(!formData.state) stepErrors.state = "State is required";
@@ -65,8 +65,8 @@ const MultiStepForm = () => {
         if (googleId) {
             setGoogleId(googleId);
           }
-          else
-      Navigate("/login");
+      //     else
+      // Navigate("/login");
     }, [location]);
         
         const backgroundStyle = {
@@ -79,6 +79,8 @@ const MultiStepForm = () => {
             if (validateStep()) {
               setStep(step + 1);
             }
+            else
+            {}
           };
   const prevStep = () =>
     {
@@ -119,7 +121,7 @@ const MultiStepForm = () => {
           <div className="min-h-screen flex justify-center items-center p-4 sm:p-8 md:p-16 lg:p-24">
           <div className="shadow-xl bg-white rounded-lg max-w-5xl w-full flex flex-col md:flex-row">
             {/* Left Section - Form */}
-            <div className="p-8 w-full md:w-1/2">
+            <div className="p-8 w-full md:w-3/4">
               <h2 className="text-1xl font-bold mb-2">INSTITUTE DETAILS</h2>
               <p className="text-gray-600 mb-6 text-3xl">Enter your Institute details.</p>
               <form className="space-y-4">
@@ -131,7 +133,9 @@ const MultiStepForm = () => {
                     value={formData.instituteName}
                     onChange={handleChange("instituteName")}
                     className="mt-1 block w-full border border-gray-300 bg-[#E8E8E8] placeholder-[#606060] rounded-md shadow-sm p-2"
+                    required
                   />
+                  {errors.instituteName && <p className="text-red-500">{errors.instituteName}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Street Name</label>
@@ -142,6 +146,7 @@ const MultiStepForm = () => {
                     onChange={handleChange("streetName")}
                     className="mt-1 block w-full border border-gray-300 bg-[#E8E8E8] placeholder-[#606060] rounded-md shadow-sm p-2"
                   />
+
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
@@ -153,6 +158,7 @@ const MultiStepForm = () => {
                       onChange={handleChange("pincode")}
                       className="mt-1 block w-full border border-gray-300 bg-[#E8E8E8] placeholder-[#606060] rounded-md shadow-sm p-2"
                     />
+                    {errors.pincode && <p className="text-red-500">{errors.pincode}</p>}
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700">City</label>
@@ -163,17 +169,19 @@ const MultiStepForm = () => {
                       onChange={handleChange("city")}
                       className="mt-1 block w-full border border-gray-300 bg-[#E8E8E8] placeholder-[#606060] rounded-md shadow-sm p-2"
                     />
+                    {errors.city && <p className="text-red-500">{errors.city}</p>}
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">State</label>
                   <input
                     type="text"
-                    placeholder="Enter yourState Name here"
+                    placeholder="Enter your State Name here"
                     value={formData.state}
                     onChange={handleChange("state")}
                     className="mt-1 block w-full border border-gray-300 bg-[#E8E8E8] placeholder-[#606060] rounded-md shadow-sm p-2"
                   />
+                  {errors.state && <p className="text-red-500">{errors.state}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">Year of study*</label>
@@ -184,6 +192,7 @@ const MultiStepForm = () => {
                     onChange={handleChange("year")}
                     className="mt-1 block w-full border border-gray-300 bg-[#E8E8E8] placeholder-[#606060] rounded-md shadow-sm p-2"
                   />
+                  {errors.year && <p className="text-red-500">{errors.year}</p>}
                 </div>
                 <button
                   type="submit"
@@ -196,13 +205,13 @@ const MultiStepForm = () => {
             </div>
         
             {/* Right Section - Image */}
-            <div className="hidden md:flex w-1/2 bg-cover bg-no-repeat rounded-r-lg relative">
-              <img
-                src="backgroundB.png"
-                alt="Spirit24"
-                className="h-full w-full object-cover rounded-r-lg"
-              />
-            </div>
+            <div className="hidden md:flex w-1/2 bg-cover bg-no-repeat rounded-r-lg relative p-4">
+  <img
+    src="playerBlue.png"
+    alt="Spirit24"
+    className="h-auto w-3/4 object-contain rounded-r-lg" 
+  />
+</div>
           </div>
         </div>
         
@@ -226,6 +235,7 @@ const MultiStepForm = () => {
                     onChange={handleChange("name")}
                     className="mt-1 block w-full border border-gray-300 bg-[#E8E8E8] placeholder-[#606060] rounded-md shadow-sm p-2"
                   />
+                  {errors.name && <p className="text-red-500">{errors.name}</p>}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
@@ -238,12 +248,15 @@ const MultiStepForm = () => {
                     onChange={handleChange("email")}
                     className="mt-1 block w-full border border-gray-300 bg-[#E8E8E8] placeholder-[#606060] rounded-md shadow-sm p-2"
                   />
+                  {errors.email && <p className="text-red-500">{errors.email}</p>}
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Gender</label>
                     <div className="flex space-x-2">
-                      <label className="flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 bg-[#E8E8E8] hover:bg-gray-100">
+                    <label className={`flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 
+  ${formData.gender === 'male' ? 'bg-blue-200' : 'bg-[#E8E8E8]'} hover:bg-gray-100`}>
+
                         <input
                           type="radio"
                           name="gender"
@@ -253,7 +266,8 @@ const MultiStepForm = () => {
                         />
                         <span className="mr-2 bg-[#E8E8E8]">♂️</span> Male
                       </label>
-                      <label className="flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 bg-[#E8E8E8] hover:bg-gray-100">
+                      <label className={`flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 
+  ${formData.gender === 'female' ? 'bg-blue-200' : 'bg-[#E8E8E8]'} hover:bg-gray-100`}>
                         <input
                           type="radio"
                           name="gender"
@@ -263,6 +277,7 @@ const MultiStepForm = () => {
                         />
                         <span className="mr-2">♀️</span> Female
                       </label>
+                      {errors.gender && <p className="text-red-500">{errors.gender}</p>}
                     </div>
                   </div>
                 </div>
@@ -278,6 +293,7 @@ const MultiStepForm = () => {
                     className="mt-1 block w-full border border-gray-300 bg-[#E8E8E8] placeholder-[#606060] rounded-md shadow-sm p-2"
                   />
                 </div>
+                {errors.mobile && <p className="text-red-500">{errors.mobile}</p>}
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
                     Alternate No.
@@ -308,13 +324,13 @@ const MultiStepForm = () => {
             </div>
         
             {/* Right Section - Image */}
-            <div className="hidden md:flex w-1/2 bg-cover bg-no-repeat rounded-r-lg relative">
-              <img
-                src="backgroundG.png"
-                alt="Spirit24"
-                className="h-full w-full object-cover rounded-r-lg"
-              />
-            </div>
+            <div className="hidden md:flex w-1/2 bg-cover bg-no-repeat rounded-r-lg relative p-4">
+  <img
+    src="playerGreen.png"
+    alt="Spirit24"
+    className="h-auto w-3/4 object-contain rounded-r-lg" 
+  />
+</div>
           </div>
         </div>
         
@@ -343,7 +359,8 @@ const MultiStepForm = () => {
                  <div>
                    <label className="block text-sm font-medium text-gray-700 mb-2">Your Position</label>
                    <div className="flex space-x-2">
-                     <label className="flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 bg-[#E8E8E8] hover:bg-gray-100">
+                   <label className={`flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 
+  ${formData.position === 'Coach' ? 'bg-blue-200' : 'bg-[#E8E8E8]'} hover:bg-gray-100`}>
                        <input
                          type="radio"
                          name="position"
@@ -353,7 +370,8 @@ const MultiStepForm = () => {
                        />
                        <span className="mr-2 bg-[#E8E8E8]">♂️</span> Coach
                      </label>
-                     <label className="flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 bg-[#E8E8E8] hover:bg-gray-100">
+                     <label className={`flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 
+  ${formData.position === 'Player' ? 'bg-blue-200' : 'bg-[#E8E8E8]'} hover:bg-gray-100`}>
                        <input
                          type="radio"
                          name="position"
@@ -363,6 +381,7 @@ const MultiStepForm = () => {
                        />
                        <span className="mr-2">♀️</span> Player
                      </label>
+                     {errors.position && <p className="text-red-500">{errors.position}</p>}
                    </div>
                  </div>
                </div>
@@ -370,7 +389,8 @@ const MultiStepForm = () => {
                  <div>
                    <label className="block text-sm font-medium text-gray-700 mb-2">Participate As</label>
                    <div className="flex space-x-2">
-                     <label className="flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 bg-[#E8E8E8] hover:bg-gray-100">
+                   <label className={`flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 
+  ${formData.participation === 'Contingent' ? 'bg-blue-200' : 'bg-[#E8E8E8]'} hover:bg-gray-100`}>
                        <input
                          type="radio"
                          name="participation"
@@ -380,7 +400,8 @@ const MultiStepForm = () => {
                        />
                        Contingent
                      </label>
-                     <label className="flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 bg-[#E8E8E8] hover:bg-gray-100">
+                     <label className={`flex items-center px-4 py-2 border rounded-lg cursor-pointer border-gray-300 
+  ${formData.participation === 'Team' ? 'bg-blue-200' : 'bg-[#E8E8E8]'} hover:bg-gray-100`}>
                        <input
                          type="radio"
                          name="participation"
@@ -390,6 +411,7 @@ const MultiStepForm = () => {
                        />
                        Team
                      </label>
+                     {errors.participation && <p className="text-red-500">{errors.participation}</p>}
                    </div>
                  </div>
                </div>
@@ -411,13 +433,13 @@ const MultiStepForm = () => {
            </div>
        
            {/* Right Section - Image */}
-           <div className="hidden md:flex w-full md:w-1/2 bg-cover bg-no-repeat rounded-r-lg relative">
-             <img
-               src="player.png"
-               alt="Spirit24"
-               className="h-full w-full object-cover rounded-r-lg"
-             />
-           </div>
+           <div className="hidden md:flex w-1/2 bg-cover bg-no-repeat rounded-r-lg relative p-4">
+  <img
+    src="playerRed.png"
+    alt="Spirit24"
+    className="h-auto w-3/4 object-contain rounded-r-lg" 
+  />
+</div>
          </div>
        </div>
        

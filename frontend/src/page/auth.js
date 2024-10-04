@@ -1,4 +1,5 @@
 import LoginComponent from "../components/login";
+import Footer from "../components/footer";
 
 const Auth=()=>{
     return (

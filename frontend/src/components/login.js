@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Footer from './footer';
 
 const LoginComponent = () => {
 
@@ -42,16 +43,17 @@ const LoginComponent = () => {
     <div className="flex min-h-screen" style={backgroundStyle}>
       <div className="m-auto bg-white rounded-xl shadow-lg overflow-hidden w-11/12 max-w-3xl h-auto md:h-[600px] md:flex">
         <div className="p-8 md:w-1/2 flex flex-col justify-center h-full">
-          <h2 className="text-1xl font-bold mb-1">LOGIN</h2>
-          <p className="text-2xl mb-6">Select your preferred mode to Sign in.</p>
+          <h2 className="text-1xl font-bold mb-1 font-work-sans">LOGIN</h2>
+          <p className="text-2xl mb-6 font-work-sans">Select your preferred mode to Sign in.</p>
           <div className="flex gap-4">
-            <button onClick={handleGoogleLogin} className="flex items-center justify-center w-20 h-16 border border-gray-300 rounded-lg hover:bg-gray-100">
-            <img
-            src="google.jpg"
-            alt="Google"
-            className="object-contain w-full h-full"
-          />
-            </button>
+          <button onClick={handleGoogleLogin} className="flex items-center justify-center w-24 h-20 border border-gray-300 rounded-lg hover:bg-gray-100">
+  <img
+    src="google.jpg"
+    alt="Google"
+    className="object-contain w-12 h-12"
+  />
+</button>
+
             {/* <button onClick={handleFacebookLogin} className="flex items-center justify-center w-20 h-16 border border-gray-300 rounded-lg hover:bg-gray-100">
             <img
             src="facebook.png"
@@ -68,9 +70,9 @@ const LoginComponent = () => {
             {/* </button> */}
           </div>
         </div>
-        <div className="relative md:w-1/2 flex items-center justify-end">
+        <div className="relative md:w-1/2 flex items-center justify-end p-2">
           <img
-            src="player.png"
+            src="PlayerRed.png"
             alt="Athlete jumping"
             className="object-contain w-full h-full"
           />

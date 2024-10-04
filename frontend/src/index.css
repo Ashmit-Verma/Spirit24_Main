@@ -12,7 +12,61 @@ code {
     monospace;
 }
 
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Satoshi';
+  src: url('../public/fonts/Satoshi-Black.otf') format('opentype');
+  font-weight: 700; /* Adjust weight as necessary */
+  font-style: normal; /* You can change to italic if needed */
+}
+
+@font-face {
+  font-family: 'Century Gothic';
+  src: url('../public/fonts/Century-Gothic.ttf') format('truetype');
+  font-weight: normal; /* Adjust weight as necessary */
+  font-style: normal; /* You can change to italic if needed */
+}
+
+@font-face {
+  font-family: 'FireSans';
+  src: url('../public/fonts/FiraSansCondensed-SemiBold.ttf') format('truetype');
+  font-weight: normal; /* Adjust weight as necessary */
+  font-style: normal; /* You can change to italic if needed */
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('../public/fonts/WorkSans-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal; /* Adjust weight as necessary */
+  font-style: normal; /* You can change to italic if needed */
+}
+
+@font-face {
+  font-family: 'LeagueGothic';
+  src: url('../public/fonts/LeagueGothic-Regular-VariableFont_wdth.ttf') format('truetype');
+  font-weight: normal; /* Adjust weight as necessary */
+  font-style: normal; /* You can change to italic if needed */
+}
+
+/* body {
+  font-family: 'Satoshi', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} */
+
+/* Apply Century Gothic to headings */
+/* h1, h2, h3, h4, h5, h6 {
+  font-family: 'Century Gothic', sans-serif;
+} */
+
+/* Ensure all text uses the correct font by default */
+/* * {
+  font-family: 'Satoshi', sans-serif;
+} */

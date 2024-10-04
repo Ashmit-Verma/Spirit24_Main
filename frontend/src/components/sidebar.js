@@ -22,10 +22,10 @@ const Sidebar = ({ isOpen, toggleSidebar, className }) => {
       setGoogleId(googleId);
       console.log(googleId);
     }
-    else
-    {
-      Navigate("/login");
-    }
+    // else
+    // {
+    //   Navigate("/login");
+    // }
   }, [location]);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Sidebar = ({ isOpen, toggleSidebar, className }) => {
         setUserData(response.data);
       } catch (error) {
         console.error("Error fetching user details:", error);
-        Navigate("/login");
+        // Navigate("/login");
       }
     };
 
@@ -73,9 +73,8 @@ const Sidebar = ({ isOpen, toggleSidebar, className }) => {
           Add Sports
         </a>
         <a 
-  href="RuleBooklet.pdf" 
+  href="/rule?googleId=${googleId}" 
   className="py-4 text-center block hover:bg-orange-500 md:bg-transparent text-black" 
-  download="RuleBook.pdf"
 >
   Rule Book
 </a>

@@ -4,6 +4,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 const FAQSection = () => {
   const [openCategory, setOpenCategory] = useState(null);
   const [openFaq, setOpenFaq] = useState({});
+  const [contentHeight, setContentHeight] = useState({});
 
   const faqData = [
     {
@@ -32,7 +33,7 @@ const FAQSection = () => {
       questions: [
         {
           question: "How can I register?",
-          answer: "Before registering, please review the Rulebook. Once you have done so, you can proceed to the \"Registration\" section of the website."
+          answer: "Before registering, please review the Rulebook. Once you have done so, you can proceed to the 'Registration' section of the website."
         },
         {
           question: "What is the last date for registration?",
@@ -49,19 +50,19 @@ const FAQSection = () => {
       questions: [
         {
           question: "What sports are included in the fest?",
-          answer: "The fest will feature a variety of sports, including football, basketball, volleyball, cricket, athletics, and more. The full list can be found on the \"Events\" page."
+          answer: "The fest will feature a variety of sports, including football, basketball, volleyball, cricket, athletics, and more. The full list can be found on the 'Events' page."
         },
         {
           question: "Where can I find the schedule of events?",
-          answer: "The event schedule will be available on the \"Event Schedule\" page of the app and will be updated regularly."
+          answer: "The event schedule will be available on the 'Event Schedule' page of the app and will be updated regularly."
         },
         {
           question: "Will there be both team-based and individual events?",
-          answer: "Yes, the fest will include both team-based and individual events. Details for each can be found on the \"Events\" page."
+          answer: "Yes, the fest will include both team-based and individual events. Details for each can be found on the 'Events' page."
         },
         {
           question: "Are there any prizes for winners?",
-          answer: "Yes, winners in various categories will be awarded trophies, medals, Goodies and cash prizes."
+          answer: "Yes, winners in various categories will be awarded trophies, medals, goodies, and cash prizes."
         }
       ]
     },
@@ -110,42 +111,66 @@ const FAQSection = () => {
     }));
   };
 
+  const calculateHeight = (index) => {
+    const content = document.getElementById(`faq-content-${index}`);
+    if (content) {
+      setContentHeight(prev => ({
+        ...prev,
+        [index]: content.scrollHeight
+      }));
+    }
+  };
+
   return (
     <section className="p-4 md:p-8 bg-white">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl md:text-5xl font-bold text-white bg-indigo-900 py-4">
+      <div className="text-center mb-8 bg-[#141414]">
+        <h2 className="text-3xl md:text-5xl font-bold text-white py-4">
           FAQs
         </h2>
       </div>
       {faqData.map((category, categoryIndex) => (
         <div key={categoryIndex} className="mb-6">
           <button
-            className="w-full text-left px-4 py-3 bg-indigo-900 text-white text-xl md:text-2xl font-semibold focus:outline-none flex justify-between items-center"
-            onClick={() => toggleCategory(categoryIndex)}
+            className="w-full text-left px-4 py-3 bg-[#141414] text-white text-xl md:text-2xl font-semibold focus:outline-none flex justify-between items-center"
+            onClick={() => {
+              toggleCategory(categoryIndex);
+              calculateHeight(categoryIndex);
+            }}
           >
             <span>{category.category}</span>
             <span>{openCategory === categoryIndex ? <ChevronUp /> : <ChevronDown />}</span>
           </button>
-          {openCategory === categoryIndex && (
-            <div className="border border-indigo-900 border-t-0">
-              {category.questions.map((faq, questionIndex) => (
-                <div key={questionIndex} className="border-t border-indigo-900">
-                  <button
-                    className="flex justify-between items-center w-full text-left px-4 py-3 focus:outline-none"
-                    onClick={() => toggleFaq(categoryIndex, questionIndex)}
-                  >
-                    <span className="font-semibold text-lg md:text-xl">{faq.question}</span>
-                    <span>{openFaq[categoryIndex] === questionIndex ? <ChevronUp /> : <ChevronDown />}</span>
-                  </button>
+          <div
+            id={`faq-content-${categoryIndex}`}
+            className={`transition-all duration-300 overflow-hidden`}
+            style={{
+              maxHeight: openCategory === categoryIndex ? `${contentHeight[categoryIndex] || 0}px` : '0',
+            }}
+          >
+            {category.questions.map((faq, questionIndex) => (
+              <div key={questionIndex} className="border-t border-indigo-900">
+                <button
+                  className="flex justify-between items-center w-full text-left px-4 py-3 focus:outline-none"
+                  onClick={() => toggleFaq(categoryIndex, questionIndex)}
+                >
+                  <span className="font-semibold text-lg md:text-xl">{faq.question}</span>
+                  <span>{openFaq[categoryIndex] === questionIndex ? <ChevronUp /> : <ChevronDown />}</span>
+                </button>
+                <div
+                  className={`transition-all duration-300 overflow-hidden`}
+                  style={{
+                    maxHeight: openFaq[categoryIndex] === questionIndex ? '200px' : '0',
+                  }}
+                >
                   {openFaq[categoryIndex] === questionIndex && (
-                    <p className="px-4 pb-4 text-base md:text-lg">
+                    <p className="px-4 pb-4 bg-[#141414] text-white text-base md:text-lg">
                       {faq.answer}
                     </p>
                   )}
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            ))}
+          </div>
         </div>
       ))}
     </section>
