@@ -53,11 +53,11 @@ router.get(
           );
 
           // Send the token to the frontend
-          return res.redirect(`https://chipper-hamster-bec1f3.netlify.app/registration?googleId=${googleUser.googleId}`);
+          return res.redirect(`https://spiritiitg.in/registration?googleId=${googleUser.googleId}`);
         } else {
           // If the user entry does not exist, redirect to the signup page
           console.log("User profile is incomplete, redirecting to signup");
-          return res.redirect(`https://chipper-hamster-bec1f3.netlify.app/signup?googleId=${googleUser.googleId}`);  // Replace with your actual signup route
+          return res.redirect(`https://spiritiitg.in/signup?googleId=${googleUser.googleId}`);  // Replace with your actual signup route
         }
 
       } catch (error) {
