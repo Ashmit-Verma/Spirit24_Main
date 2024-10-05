@@ -47,7 +47,7 @@ const User = sequelize.define(
       unique: true,
     },
     year: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     gender: {
