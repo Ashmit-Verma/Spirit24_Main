@@ -30,6 +30,9 @@ const SportsRegistrations = () => {
         const response = await axios.get('https://spirit24-main.onrender.com/sportsDetail', {
           params: { googleId } ,
         });
+        // const response = await axios.get('http://localhost:8001/sportsDetail', {
+        //   params: { googleId } ,
+        // });
         setRegistrations(response.data.registrations);
       } catch (err) {
         setError(err.response ? err.response.data.message : "Error fetching data");

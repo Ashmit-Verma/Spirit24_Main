@@ -6,7 +6,7 @@ export const getSportRegistration = async (req, res) => {
   try {
     // Access googleId from query parameters
     const { googleId } = req.query;
-    console.log("sports Detail"+googleId);
+    console.log("sports Detail" + googleId);
 
     // Find the GoogleUser by googleId
     const googleUser = await GoogleUser.findOne({ where: { googleId } });
@@ -27,11 +27,11 @@ export const getSportRegistration = async (req, res) => {
       return res.status(404).json({ message: "No sports registrations found for this user" });
     }
 
-    // Format the registrations to include team members if they exist
+    // Format the registrations to include team members directly
     const formattedRegistrations = registrations.map(registration => {
       return {
         ...registration.get(), // Spread the registration fields
-        teamMembers: registration.teamMembers ? JSON.parse(registration.teamMembers) : [], // Parse if teamMembers is a string
+        teamMembers: registration.teamMembers || [], // Directly use teamMembers
       };
     });
 
@@ -41,8 +41,7 @@ export const getSportRegistration = async (req, res) => {
       registrations: formattedRegistrations,
     });
   } catch (error) {
-    console.error("Error fetching registrations:", error); // Log the error for debugging
+    console.error('Error fetching registrations:', error); // Log the error for debugging
     return res.status(500).json({ message: 'Error fetching registrations', error: error.message });
   }
-  
 };
