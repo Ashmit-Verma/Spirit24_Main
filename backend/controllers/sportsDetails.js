@@ -41,6 +41,8 @@ export const getSportRegistration = async (req, res) => {
       registrations: formattedRegistrations,
     });
   } catch (error) {
-    return res.status(500).json({ message: 'Error fetching registrations', error });
+    console.error("Error fetching registrations:", error); // Log the error for debugging
+    return res.status(500).json({ message: 'Error fetching registrations', error: error.message });
   }
+  
 };
