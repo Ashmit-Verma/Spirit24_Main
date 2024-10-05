@@ -30,10 +30,11 @@ const Sidebar = ({ isOpen, toggleSidebar, className }) => {
 
   useEffect(() => {
     const fetchUserData = async () => {
+      if(!googleId) return;
       try {
         const response = await axios.get('https://spirit24-main.onrender.com/profile', {
           params: {
-            googleId: googleId,
+            googleId:  googleId ,
           },
         });
         setUserData(response.data);

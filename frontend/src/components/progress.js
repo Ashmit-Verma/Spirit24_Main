@@ -295,12 +295,12 @@ const teamLimits = {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{`${formData.captain.firstName} ${formData.captain.lastName}(CAPTAIN)`}</td>
+                    <td>{`${formData.captain.firstName} ${formData.captain.lastName}(C)`}</td>
                     <td>{formData.captain.email}</td>
                     <td>{formData.captain.contactNumber}</td>
                   </tr>
                   <tr>
-                    <td>{`${formData.viceCaptain.firstName} ${formData.viceCaptain.lastName}(VICE-CAPTAIN)`}</td>
+                    <td>{`${formData.viceCaptain.firstName} ${formData.viceCaptain.lastName}(VC)`}</td>
                     <td>{formData.viceCaptain.email}</td>
                     <td>{formData.viceCaptain.contactNumber}</td>
                   </tr>

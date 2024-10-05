@@ -25,9 +25,10 @@ const SportsRegistrations = () => {
 
   useEffect(() => {
     const fetchRegistrations = async () => {
+        if (!googleId) return;
       try {
         const response = await axios.get('https://spirit24-main.onrender.com/sportsDetail', {
-          params: googleId ,
+          params: { googleId } ,
         });
         setRegistrations(response.data.registrations);
       } catch (err) {
