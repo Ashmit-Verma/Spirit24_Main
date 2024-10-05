@@ -237,7 +237,7 @@ const teamLimits = {
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
 
-  const handleSubmitForm = async () => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
     let formIsValid = true;
     
