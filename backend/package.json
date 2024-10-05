@@ -27,6 +27,7 @@
     "passport-apple": "^2.0.2",
     "passport-facebook": "^3.0.0",
     "passport-google-oauth20": "^2.0.0",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "validator": "^13.12.0"
   }
 }

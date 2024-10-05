@@ -29,10 +29,8 @@ const MultiStepForm = () => {
     },
     teamMembers: [],
   });
-
   const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
-
-const validateContactNumber = (number) => /^[0-9]{10}$/.test(number); // Adjust based on your contact number format
+  const validateContactNumber = (number) => /^[0-9]{10}$/.test(number); // Adjust based on your contact number format
 
 const handleInputChange = (role, field, value) => {
   let newErrors = { ...errors };
@@ -45,11 +43,11 @@ const handleInputChange = (role, field, value) => {
       newErrors[role].firstName = ''; // Clear error if valid
     }
 
-    if (field === 'lastName' && value.trim() === '') {
-      newErrors[role].lastName = "Last name is required";
-    } else {
-      newErrors[role].lastName = '';
-    }
+    // if (field === 'lastName' && value.trim() === '') {
+    //   newErrors[role].lastName = "Last name is required";
+    // } else {
+    //   newErrors[role].lastName = '';
+    // }
 
     if (field === 'email') {
       if (!validateEmail(value)) {
@@ -76,55 +74,40 @@ const handleTeamMemberChange = (index, field, value) => {
   let newErrors = { ...errors };
 
   // Validation for team members
-  if (field === 'firstName' && value.trim() === '') {
-    newErrors.teamMembers[index] = {
-      ...newErrors.teamMembers[index],
-      firstName: "First name is required",
-    };
-  } else {
-    newErrors.teamMembers[index] = {
-      ...newErrors.teamMembers[index],
-      firstName: '',
-    };
+  if (!newErrors.teamMembers[index]) {
+    newErrors.teamMembers[index] = {};
   }
 
-  if (field === 'lastName' && value.trim() === '') {
-    newErrors.teamMembers[index] = {
-      ...newErrors.teamMembers[index],
-      lastName: "Last name is required",
-    };
-  } else {
-    newErrors.teamMembers[index] = {
-      ...newErrors.teamMembers[index],
-      lastName: '',
-    };
+  // Validation for team members
+  if (field === 'firstName') {
+    if (value.trim() === '') {
+      newErrors.teamMembers[index].firstName = "First name is required";
+    } else {
+      delete newErrors.teamMembers[index].firstName;
+    }
   }
+
+  // if (field === 'lastName') {
+  //   if (value.trim() === '') {
+  //     newErrors.teamMembers[index].lastName = "Last name is required";
+  //   } else {
+  //     delete newErrors.teamMembers[index].lastName;
+  //   }
+  // }
 
   if (field === 'email') {
     if (!validateEmail(value)) {
-      newErrors.teamMembers[index] = {
-        ...newErrors.teamMembers[index],
-        email: "Invalid email address",
-      };
+      newErrors.teamMembers[index].email = "Invalid email address";
     } else {
-      newErrors.teamMembers[index] = {
-        ...newErrors.teamMembers[index],
-        email: '',
-      };
+      delete newErrors.teamMembers[index].email;
     }
   }
 
   if (field === 'contactNumber') {
     if (!validateContactNumber(value)) {
-      newErrors.teamMembers[index] = {
-        ...newErrors.teamMembers[index],
-        contactNumber: "Contact number must be 10 digits",
-      };
+      newErrors.teamMembers[index].contactNumber = "Contact number must be 10 digits";
     } else {
-      newErrors.teamMembers[index] = {
-        ...newErrors.teamMembers[index],
-        contactNumber: '',
-      };
+      delete newErrors.teamMembers[index].contactNumber;
     }
   }
 
@@ -224,16 +207,49 @@ const teamLimits = {
   
 
   const nextStep = () => {
-    if (currentStep === 3 && formData.teamMembers.length < teamLimits[formData.sport].min) {
-      alert(`You must add at least ${teamLimits[formData.sport].min} team members before proceeding to the next step.`);
+    let formIsValid2 = true; // Initialize validation flag
+  
+    if (currentStep === 1 && !formData.sport) {
+      alert(`You must select a sport`);
+      formIsValid2 = false; // Set to false if validation fails
+    } else if (currentStep === 2) {
+      // Check captain and vice-captain errors
+      const captainErrors = Object.values(errors.captain).some(e => e);
+        const viceCaptainErrors = Object.values(errors.viceCaptain).some(e => e);
+
+        // Validate captain fields
+        const isCaptainValid = Object.values(formData.captain).every(field => field.trim() !== '');
+        // Validate vice-captain fields
+        const isViceCaptainValid = Object.values(formData.viceCaptain).every(field => field.trim() !== '');
+
+        if (captainErrors || viceCaptainErrors || !isCaptainValid || !isViceCaptainValid) {
+            alert("Please fix captain and/or vice-captain errors and ensure all fields are filled."); // Alert if there are errors
+            formIsValid2 = false; // Set to false if there // Set to false if there are errors
+      }
+    } else if (currentStep === 3) {
+      // Validate team members
+      const isTeamMembersValid = formData.teamMembers.length >= teamLimits[formData.sport].min;
+    const teamMemberErrors = errors.teamMembers.some(error => Object.values(error).some(e => e));
+
+    // Check if all required fields for each team member are filled
+    const areAllMembersFilled = formData.teamMembers.every((member, index) => {
+      const memberErrors = errors.teamMembers[index] || {};
+      const hasEmptyFields = ['firstName', 'email', 'contactNumber'].some(field => !member[field] || memberErrors[field]);
+      return !hasEmptyFields; // Returns true if no empty fields, false if any are empty
+    });
+
+    if (!isTeamMembersValid || teamMemberErrors || !areAllMembersFilled) {
+      alert(`You must add at least ${teamLimits[formData.sport].min} team members with valid information before proceeding to the next step.`);
+      formIsValid2 = false; // Set to false if validation fails
     }
-    else
-    {
-      console.log(formData.teamMembers.length);
-      console.log(teamLimits[formData.sport]);
-      setCurrentStep(prev => Math.min(prev + 1, 4));
+    }
+  
+    // Move to next step only if formIsValid2 is still true
+    if (formIsValid2) {
+      setCurrentStep(prev => Math.min(prev + 1, 4)); // Proceed to the next step
     }
   };
+  
   const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
 
@@ -243,13 +259,27 @@ const teamLimits = {
     
     // Validate captain and vice captain
     Object.values(errors.captain).forEach(error => {
-      if (error) formIsValid = false;
+      if (error)
+        {
+          formIsValid = false;
+          console.log("Error in captain");
+          console.log(error);
+        } 
     });
     Object.values(errors.viceCaptain).forEach(error => {
-      if (error) formIsValid = false;
+      if (error) 
+        {
+          formIsValid = false;
+          console.log("Error in Vice Captain");
+          console.log(error);
+        }
     });
-    errors.teamMembers.forEach(error => {
-      if (error) formIsValid = false;
+    errors.teamMembers.forEach((error, index) => {
+      if (error && Object.keys(error).length > 0) {
+          formIsValid = false; // Set formIsValid to false if there's any error
+          console.log(`Error in team member ${index + 1}:`, error);
+      }
+
     });
     if(formIsValid)
     {
@@ -261,6 +291,14 @@ const teamLimits = {
           teamMembers: formData.teamMembers,
           googleId,
         });
+        // const response = await axios.post('http://localhost:4001/sportsRegister', {
+        //     sport: formData.sport,
+        //     captain: formData.captain,
+        //     viceCaptain: formData.viceCaptain,
+        //     teamMembers: formData.teamMembers,
+        //     googleId,
+        //   });
+        
   
         if(response.status===201)
         {
@@ -397,7 +435,9 @@ const teamLimits = {
   {formData.teamMembers.map((member, index) => (
     <div key={index} className="flex flex-col gap-4 mb-4">
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-7">
-      {errors[`teamMemberFirstName_${index}`] && <p className="text-red-500">{errors[`teamMemberFirstName_${index}`]}</p>}
+      {errors.teamMembers[index]?.firstName && (
+        <p className="text-red-500">{errors.teamMembers[index].firstName}</p>
+      )}
         <input
           className="p-2 border rounded w-full bg-[#E8E8E8] sm:max-w-[20%] md:max-w-[25%] lg:max-w-[30%]"
           placeholder="First Name"
@@ -405,7 +445,9 @@ const teamLimits = {
           onChange={(e) => handleTeamMemberChange(index, 'firstName', e.target.value)}
           required
         />
-        {errors[`teamMemberLastName_${index}`] && <p className="text-red-500">{errors[`teamMemberLastName_${index}`]}</p>}
+       {errors.teamMembers[index]?.lastName && (
+        <p className="text-red-500">{errors.teamMembers[index].lastName}</p>
+      )}
         <input
           className="p-2 border rounded bg-[#E8E8E8] w-full sm:max-w-[20%] md:max-w-[25%] lg:max-w-[30%]"
           placeholder="Last Name"
@@ -413,7 +455,9 @@ const teamLimits = {
           onChange={(e) => handleTeamMemberChange(index, 'lastName', e.target.value)}
           required
         />
-        {errors[`teamMemberEmail_${index}`] && <p className="text-red-500">{errors[`teamMemberEmail_${index}`]}</p>}
+        {errors.teamMembers[index]?.email && (
+        <p className="text-red-500">{errors.teamMembers[index].email}</p>
+      )}
         <input
           className="p-2 border rounded bg-[#E8E8E8] w-full sm:max-w-[30%] md:max-w-[35%] lg:max-w-[40%]"
           placeholder="Email"
@@ -421,7 +465,9 @@ const teamLimits = {
           onChange={(e) => handleTeamMemberChange(index, 'email', e.target.value)}
           required
         />
-        {errors[`teamMemberContactNumber_${index}`] && <p className="text-red-500">{errors[`teamMemberContactNumber_${index}`]}</p>}
+        {errors.teamMembers[index]?.contactNumber && (
+        <p className="text-red-500">{errors.teamMembers[index].contactNumber}</p>
+      )}
         <input
           className="p-2 border rounded bg-[#E8E8E8] w-full sm:max-w-[30%] md:max-w-[35%] lg:max-w-[40%]"
           placeholder="Contact Number"
