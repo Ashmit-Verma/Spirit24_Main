@@ -98,6 +98,7 @@ export const registerSport = async (req, res) => {
 
     return res.status(201).json({ message: 'Registration successful', registration });
   } catch (error) {
+    console.error('Error in registration:', error); 
     return res.status(500).json({ message: 'Error registering sport', error });
   }
 };
