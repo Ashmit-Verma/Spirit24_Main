@@ -14,6 +14,130 @@ const MultiStepForm = () => {
     teamMembers: [{ firstName: '', lastName: '' ,email:'',contactNumber: ''}]
   });
 
+  const [errors, setErrors] = useState({
+    captain: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      contactNumber: '',
+    },
+    viceCaptain: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      contactNumber: '',
+    },
+    teamMembers: [],
+  });
+
+  const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
+
+const validateContactNumber = (number) => /^[0-9]{10}$/.test(number); // Adjust based on your contact number format
+
+const handleInputChange = (role, field, value) => {
+  let newErrors = { ...errors };
+
+  // Validation logic for Captain and Vice-Captain
+  if (role === 'captain' || role === 'viceCaptain') {
+    if (field === 'firstName' && value.trim() === '') {
+      newErrors[role].firstName = "First name is required";
+    } else {
+      newErrors[role].firstName = ''; // Clear error if valid
+    }
+
+    if (field === 'lastName' && value.trim() === '') {
+      newErrors[role].lastName = "Last name is required";
+    } else {
+      newErrors[role].lastName = '';
+    }
+
+    if (field === 'email') {
+      if (!validateEmail(value)) {
+        newErrors[role].email = "Invalid email address";
+      } else {
+        newErrors[role].email = '';
+      }
+    }
+
+    if (field === 'contactNumber') {
+      if (!validateContactNumber(value)) {
+        newErrors[role].contactNumber = "Contact number must be 10 digits";
+      } else {
+        newErrors[role].contactNumber = '';
+      }
+    }
+  }
+
+  setErrors(newErrors);
+  setFormData((prev) => ({ ...prev, [role]: { ...prev[role], [field]: value } }));
+};
+
+const handleTeamMemberChange = (index, field, value) => {
+  let newErrors = { ...errors };
+
+  // Validation for team members
+  if (field === 'firstName' && value.trim() === '') {
+    newErrors.teamMembers[index] = {
+      ...newErrors.teamMembers[index],
+      firstName: "First name is required",
+    };
+  } else {
+    newErrors.teamMembers[index] = {
+      ...newErrors.teamMembers[index],
+      firstName: '',
+    };
+  }
+
+  if (field === 'lastName' && value.trim() === '') {
+    newErrors.teamMembers[index] = {
+      ...newErrors.teamMembers[index],
+      lastName: "Last name is required",
+    };
+  } else {
+    newErrors.teamMembers[index] = {
+      ...newErrors.teamMembers[index],
+      lastName: '',
+    };
+  }
+
+  if (field === 'email') {
+    if (!validateEmail(value)) {
+      newErrors.teamMembers[index] = {
+        ...newErrors.teamMembers[index],
+        email: "Invalid email address",
+      };
+    } else {
+      newErrors.teamMembers[index] = {
+        ...newErrors.teamMembers[index],
+        email: '',
+      };
+    }
+  }
+
+  if (field === 'contactNumber') {
+    if (!validateContactNumber(value)) {
+      newErrors.teamMembers[index] = {
+        ...newErrors.teamMembers[index],
+        contactNumber: "Contact number must be 10 digits",
+      };
+    } else {
+      newErrors.teamMembers[index] = {
+        ...newErrors.teamMembers[index],
+        contactNumber: '',
+      };
+    }
+  }
+
+  setErrors(newErrors);
+  setFormData((prev) => ({
+    ...prev,
+    teamMembers: prev.teamMembers.map((member, i) => 
+      i === index ? { ...member, [field]: value } : member
+    ),
+  }));
+};
+
+
 
   const getQueryParams = () => {
     const params = new URLSearchParams(location.search);
@@ -60,18 +184,18 @@ const teamLimits = {
 };
 
 
-  const handleInputChange = (step, field, value) => {
-    setFormData(prevData => ({
-      ...prevData,
-      [step]: { ...prevData[step], [field]: value }
-    }));
-  };
+  // const handleInputChange = (step, field, value) => {
+  //   setFormData(prevData => ({
+  //     ...prevData,
+  //     [step]: { ...prevData[step], [field]: value }
+  //   }));
+  // };
 
-  const handleTeamMemberChange = (index, field, value) => {
-    const newTeamMembers = [...formData.teamMembers];
-    newTeamMembers[index] = { ...newTeamMembers[index], [field]: value };
-    setFormData(prevData => ({ ...prevData, teamMembers: newTeamMembers }));
-  };
+  // const handleTeamMemberChange = (index, field, value) => {
+  //   const newTeamMembers = [...formData.teamMembers];
+  //   newTeamMembers[index] = { ...newTeamMembers[index], [field]: value };
+  //   setFormData(prevData => ({ ...prevData, teamMembers: newTeamMembers }));
+  // };
 
   const addTeamMember = () => {
     const sportLimits = teamLimits[formData.sport];
@@ -114,28 +238,48 @@ const teamLimits = {
 
 
   const handleSubmitForm = async () => {
-    try {
-      const response = await axios.post('https://spirit24-main.onrender.com/sportsRegister', {
-        sport: formData.sport,
-        captain: formData.captain,
-        viceCaptain: formData.viceCaptain,
-        teamMembers: formData.teamMembers,
-        googleId,
-      });
-
-      if(response.status===201)
-      {
-        console.log('Form submitted:');
-        Navigate(`/registered-sports?googleId=${googleId}`, { state: { googleId } });
-
+    e.preventDefault();
+    let formIsValid = true;
+    
+    // Validate captain and vice captain
+    Object.values(errors.captain).forEach(error => {
+      if (error) formIsValid = false;
+    });
+    Object.values(errors.viceCaptain).forEach(error => {
+      if (error) formIsValid = false;
+    });
+    errors.teamMembers.forEach(error => {
+      if (error) formIsValid = false;
+    });
+    if(formIsValid)
+    {
+      try {
+        const response = await axios.post('https://spirit24-main.onrender.com/sportsRegister', {
+          sport: formData.sport,
+          captain: formData.captain,
+          viceCaptain: formData.viceCaptain,
+          teamMembers: formData.teamMembers,
+          googleId,
+        });
+  
+        if(response.status===201)
+        {
+          console.log('Form submitted:');
+          Navigate(`/registered-sports?googleId=${googleId}`, { state: { googleId } });
+  
+        }
+        else
+           console.log("Internal Server Error");
+        // Optionally reset form or show success message
+      } catch (error) {
+        console.log(error);
+        alert('Error submitting form');
+        Navigate(`/registration?googleId=${googleId}`, { state: { googleId } });
       }
-      else
-         console.log("Internal Server Error");
-      // Optionally reset form or show success message
-    } catch (error) {
-      console.log(error);
-      alert('Error submitting form');
-      Navigate(`/registration?googleId=${googleId}`, { state: { googleId } });
+    }
+    else
+    {
+      alert('Please fix the errors in the form before submitting.');
     }
   };
 
@@ -145,7 +289,7 @@ const teamLimits = {
         return (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {['Football (Men)', 'Cricket (Men)','Badminton (Men)','Badminton (Women)', 'Basketball (Men)', 'Basketball (Women)', 'Lawn Tennis (Men)', 'Lawn Tennis (Women)', 'Table Tennis (Men)', 'Table Tennis (Women)', 'Kho-kho (Men)', 'Kho-kho (Women)', 'Volleyball (Men)', 'Volleyball (Women)', 'Hockey (Men)', 'Swimming (Individual)', 'Athletics (Men)', 'Carrom', 'Yoga', 'Water Polo (Men)', 'Chess', 'Squash (Men)', 'Squash (Women)', 'Kabaddi (Men)', 'Weight Lifting (Men)']
-            .sort() // Sort the sports array
+            .sort()
             .map((sport) => (
               <button
                 key={sport}
@@ -168,32 +312,42 @@ const teamLimits = {
               <h3 className="font-bold mb-2">Captain's Details</h3>
               <div className="grid grid-cols-2 gap-4">
                 <input
+                type="text"
                   className="p-2 border rounded bg-[#E8E8E8]"
                   placeholder="First Name"
                   value={formData.captain.firstName}
                   onChange={(e) => handleInputChange('captain', 'firstName', e.target.value)}
+                  required
                 />
+                {errors.captain.firstName && <p className="text-red-500">{errors.captain.firstName}</p>}
                 <input
+                  type="text"
                   className="p-2 border rounded bg-[#E8E8E8]"
                   placeholder="Last Name"
                   value={formData.captain.lastName}
                   onChange={(e) => handleInputChange('captain', 'lastName', e.target.value)}
+                  required
                 />
               </div>
+              {errors.captain.lastName && <p className="text-red-500">{errors.captain.lastName}</p>}
               <input
                 className="p-2 border rounded w-full mt-4 bg-[#E8E8E8]"
                 placeholder="Email"
                 type="email"
                 value={formData.captain.email}
                 onChange={(e) => handleInputChange('captain', 'email', e.target.value)}
+                required
               />
+              {errors.captain.email && <p className="text-red-500">{errors.captain.email}</p>}
               <input
                 className="p-2 border rounded w-full mt-4 bg-[#E8E8E8]"
                 placeholder="Contact Number"
                 type="tel"
                 value={formData.captain.contactNumber}
                 onChange={(e) => handleInputChange('captain', 'contactNumber', e.target.value)}
+                required
               />
+              {errors.captain.contactNumber && <p className="text-red-500">{errors.captain.contactNumber}</p>}
             </div>
             <div>
               <h3 className="font-bold mb-2">Vice-Captain's Details</h3>
@@ -203,13 +357,17 @@ const teamLimits = {
                   placeholder="First Name"
                   value={formData.viceCaptain.firstName}
                   onChange={(e) => handleInputChange('viceCaptain', 'firstName', e.target.value)}
+                  required
                 />
+                {errors.viceCaptain.firstName && <p className="text-red-500">{errors.viceCaptain.firstName}</p>}
                 <input
                   className="p-2 border rounded bg-[#E8E8E8]"
                   placeholder="Last Name"
                   value={formData.viceCaptain.lastName}
                   onChange={(e) => handleInputChange('viceCaptain', 'lastName', e.target.value)}
+                  required
                 />
+                {errors.viceCaptain.lastName && <p className="text-red-500">{errors.viceCaptain.lastName}</p>}
               </div>
               <input
                 className="p-2 border rounded w-full  mt-4 bg-[#E8E8E8]"
@@ -217,15 +375,18 @@ const teamLimits = {
                 type="email"
                 value={formData.viceCaptain.email}
                 onChange={(e) => handleInputChange('viceCaptain', 'email', e.target.value)}
+                required
               />
+              {errors.viceCaptain.email && <p className="text-red-500">{errors.viceCaptain.email}</p>}
               <input
                 className="p-2 border rounded w-full mt-4 bg-[#E8E8E8]"
                 placeholder="Contact Number"
                 type="tel"
                 value={formData.viceCaptain.contactNumber}
                 onChange={(e) => handleInputChange('viceCaptain', 'contactNumber', e.target.value)}
+                required
               />
-              
+              {errors.viceCaptain.contactNumber && <p className="text-red-500">{errors.viceCaptain.contactNumber}</p>}
             </div>
           </div>
         );
@@ -236,29 +397,37 @@ const teamLimits = {
   {formData.teamMembers.map((member, index) => (
     <div key={index} className="flex flex-col gap-4 mb-4">
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-7">
+      {errors[`teamMemberFirstName_${index}`] && <p className="text-red-500">{errors[`teamMemberFirstName_${index}`]}</p>}
         <input
           className="p-2 border rounded w-full bg-[#E8E8E8] sm:max-w-[20%] md:max-w-[25%] lg:max-w-[30%]"
           placeholder="First Name"
           value={member.firstName}
           onChange={(e) => handleTeamMemberChange(index, 'firstName', e.target.value)}
+          required
         />
+        {errors[`teamMemberLastName_${index}`] && <p className="text-red-500">{errors[`teamMemberLastName_${index}`]}</p>}
         <input
           className="p-2 border rounded bg-[#E8E8E8] w-full sm:max-w-[20%] md:max-w-[25%] lg:max-w-[30%]"
           placeholder="Last Name"
           value={member.lastName}
           onChange={(e) => handleTeamMemberChange(index, 'lastName', e.target.value)}
+          required
         />
+        {errors[`teamMemberEmail_${index}`] && <p className="text-red-500">{errors[`teamMemberEmail_${index}`]}</p>}
         <input
           className="p-2 border rounded bg-[#E8E8E8] w-full sm:max-w-[30%] md:max-w-[35%] lg:max-w-[40%]"
           placeholder="Email"
           value={member.email}
           onChange={(e) => handleTeamMemberChange(index, 'email', e.target.value)}
+          required
         />
+        {errors[`teamMemberContactNumber_${index}`] && <p className="text-red-500">{errors[`teamMemberContactNumber_${index}`]}</p>}
         <input
           className="p-2 border rounded bg-[#E8E8E8] w-full sm:max-w-[30%] md:max-w-[35%] lg:max-w-[40%]"
           placeholder="Contact Number"
           value={member.contactNumber}
           onChange={(e) => handleTeamMemberChange(index, 'contactNumber', e.target.value)}
+          required
         />
         <button
         className="mt-2 px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600"

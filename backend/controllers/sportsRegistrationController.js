@@ -9,9 +9,12 @@ export const registerSport = async (req, res) => {
     const { sport, captain, viceCaptain, teamMembers, googleId} = req.body;
     console.log(googleId);
     // Ensure the user has filled personal details
-    const googleUser=await GoogleUser.findOne({where:{googleId}});
-    if(googleUser)
-      console.log("Google user found");
+
+    const googleUser = await GoogleUser.findOne({ where: { googleId } });
+    if (!googleUser) {
+      return res.status(404).json({ message: "Google user not found." });
+    }
+    console.log("Google user found");
     const user=await User.findOne({ where: { userId: googleUser.id } })
     console.log("HI");
     if (!user) {
@@ -30,7 +33,7 @@ export const registerSport = async (req, res) => {
       viceCaptainLastName: viceCaptain.lastName,
       viceCaptainEmail: viceCaptain.email,
       viceCaptainContactNumber: viceCaptain.contactNumber,
-      teamMembers: JSON.stringify(teamMembers),// This should be an array of objects
+      teamMembers,// This should be an array of objects
       userId: user.userId, // Associate with the User ID
     });
 

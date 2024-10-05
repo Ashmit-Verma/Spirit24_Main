@@ -47,7 +47,7 @@ const SportRegistration = sequelize.define(
       allowNull: false,
     },
     teamMembers: {
-      type: DataTypes.TEXT, // Changed from JSONB to JSON
+      type: DataTypes.JSON, // Changed from JSONB to JSON
       allowNull: false,
     },
   },

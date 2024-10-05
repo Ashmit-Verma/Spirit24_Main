@@ -1,5 +1,5 @@
 import React from "react";
-import { Instagram, Facebook, Youtube } from 'lucide-react';
+import { Instagram, Facebook, Youtube,Linkedin} from 'lucide-react';
 
 const Footer = () => {
     return (
@@ -37,6 +37,9 @@ const Footer = () => {
                     </a>
                     <a href="https://www.youtube.com/@spiritiitguwahati2541" className="hover:text-gray-200">
                         <Youtube size={24} />
+                    </a>
+                    <a href="https://www.linkedin.com/company/spiritiitguwahati/posts/?feedView=all" className="hover:text-gray-200">
+                        <Linkedin size={24} />
                     </a>
                 </div>
             </div>
