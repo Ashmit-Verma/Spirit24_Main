@@ -5,6 +5,7 @@
 
     const ProfilePage = () => {
         const [userData, setUserData] = useState(null);
+        
     const location = useLocation();
     const Navigate=useNavigate();
     const [googleId, setGoogleId] = useState('');
@@ -22,10 +23,10 @@
         setGoogleId(googleId);
         console.log(googleId);
         }
-        // else
-        // {
-        //   Navigate("/login");
-        // }
+        else
+        {
+          Navigate("/login");
+        }
     }, [location]);
 
     useEffect(() => {

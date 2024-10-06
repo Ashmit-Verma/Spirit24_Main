@@ -7,6 +7,7 @@ const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const location = useLocation();
   const [googleId,setGoogleId]=useState('');
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     sport: '',
     captain: { firstName: '', lastName: '', email: '', contactNumber: '' },
@@ -283,6 +284,7 @@ const teamLimits = {
     });
     if(formIsValid)
     {
+      setLoading(true);
       try {
         const response = await axios.post('https://spirit24-main.onrender.com/sportsRegister', {
           sport: formData.sport,
@@ -302,14 +304,19 @@ const teamLimits = {
   
         if(response.status===201)
         {
+          setLoading(false);
           console.log('Form submitted:');
           Navigate(`/registered-sports?googleId=${googleId}`, { state: { googleId } });
   
         }
         else
-           console.log("Internal Server Error");
+        {
+          setLoading(false);
+          console.log("Internal Server Error");
+        }
         // Optionally reset form or show success message
       } catch (error) {
+        setLoading(false);
         console.log(error);
         alert('Error submitting form');
         Navigate(`/registration?googleId=${googleId}`, { state: { googleId } });

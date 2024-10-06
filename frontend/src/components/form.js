@@ -5,6 +5,7 @@ import axios from 'axios';
 const MultiStepForm = () => {
   const Navigate = useNavigate();
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
     const backgroundImages = {
         1: 'url("backgroundBlue.png")',
         2: 'url("bGreen.png")',
@@ -104,15 +105,19 @@ const MultiStepForm = () => {
         googleId: googleId, // Include the extracted googleId
     };
         // Send form data to backend using Axios
+        setLoading(true);
         console.log(dataToSubmit);
         const response = await axios.post('https://spirit24-main.onrender.com/register', dataToSubmit);
         if (response.status === 201) {
+          setLoading(false);
           alert("Form submitted successfully!");
           Navigate(`/registration?googleId=${googleId}`, { state: { googleId } });
         } else {
+          setLoading(false);
           alert("Something went wrong. Please try again.");
         }
       } catch (error) {
+        setLoading(false);
         console.error("Error submitting form:", error);
         alert("Error submitting form.");
   };
@@ -120,6 +125,12 @@ const MultiStepForm = () => {
 
   return (
     <div className="min-h-screen p-8 flex justify-center items-center"  style={backgroundStyle}>
+      {loading && (
+  <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-[9999]">
+    <div className="w-16 h-16 border-8 border-t-white border-opacity-30 rounded-full animate-spin"></div>
+  </div>
+)}
+
       {/* <div className="m-auto bg-white rounded-xl shadow-lg overflow-hidden w-11/12 max-w-5xl h-auto md:h-[800px] md:flex"> */}
         {step === 1 && (
           <div className="min-h-screen flex justify-center items-center p-4 sm:p-8 md:p-16 lg:p-24">
