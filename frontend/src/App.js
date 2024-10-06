@@ -8,6 +8,7 @@ import Registration from './page/registration.js'
 import Landing from './page/landingPage.js';
 import SportRegistration from './page/sportsDetail.js';
 import Rule from './page/rulePage.js';
+import Profile from './page/profilePage.js';
 
 
 // SignupRoute to ensure login is done before accessing signup
@@ -23,6 +24,7 @@ function App() {
         <Route path="/registration" element={<Registration/>} />
         <Route path="/registered-sports" element={<SportRegistration/>} />
         <Route path="/rule" element={<Rule/>} />
+        <Route path="/profile" element={<Profile/>} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

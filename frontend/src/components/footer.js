@@ -18,9 +18,9 @@ const Footer = () => {
                     </div>
                     <div className="flex flex-col h-auto mb-8 md:mb-0">
                         <h1 className="text-white text-2xl md:text-4xl">Quick Links</h1>
-                        <p className="text-sm mb-2 pt-2">Home</p>
-                        <p className="text-sm mb-2 pt-2">Campus Ambassador</p>
-                        <p className="text-sm mb-2 pt-2">About Us</p>
+                        <a href="/" className="text-sm mb-2 pt-2">Home</a>
+                        <a href="https://timely-mochi-34f86a.netlify.app" className="text-sm mb-2 pt-2">Campus Ambassador</a>
+                        <a href="/" className="text-sm mb-2 pt-2">About Us</a>
                     </div>
                     <div className="flex flex-col h-auto mb-8 md:mb-0">
                         <h1 className="text-white text-2xl md:text-4xl">Contact</h1>

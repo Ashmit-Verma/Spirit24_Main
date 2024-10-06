@@ -22,7 +22,11 @@ export const profileController= async (req, res) => {
       res.json({
         name: user.name,
         avatarUrl: user.avatarUrl, // Assuming the user has an avatar URL stored
-        role: user.participate, // Send the role or default to "Player"
+        role: user.participate,
+        email:user.email,
+        mobile:user.mobile,
+        gender:user.gender
+         // Send the role or default to "Player"
       });
     } catch (error) {
       console.error("Error fetching user details:", error);

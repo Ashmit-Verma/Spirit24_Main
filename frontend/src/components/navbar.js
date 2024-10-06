@@ -19,7 +19,7 @@ const Navbar = () => {
 
         {/* Center: Logo */}
         <div className="text-2xl font-bold absolute left-1/2 transform -translate-x-1/2">
-          <img src="logo.png" alt="Logo" className="h-8 w-auto" />
+          <img src="logo.svg" alt="Logo" className="h-8 w-auto" />
         </div>
 
         {/* Right: User Profile Icon */}
